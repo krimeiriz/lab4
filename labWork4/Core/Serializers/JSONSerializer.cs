@@ -21,28 +21,34 @@ namespace labWork4.Core.Serializers
             }
             this._soursePath = sourcePath;
         }
-        IList<Contact> ISerializer.Deserialize()
+        Task<List<Contact>> ISerializer.Deserialize()
         {
-            if (!File.Exists(_soursePath))
+            return Task<List<Contact>>.Run(() =>
             {
-                return new List<Contact>();
-            }
-            else
-            {
-                string jsonString = File.ReadAllText(_soursePath);
-                if(string.IsNullOrEmpty(jsonString))
+                if (!File.Exists(_soursePath))
                 {
                     return new List<Contact>();
                 }
-                return JsonSerializer.Deserialize<List<Contact>>(jsonString) ?? new List<Contact>();
-            }
+                else
+                {
+                    string jsonString = File.ReadAllText(_soursePath);
+                    if (string.IsNullOrEmpty(jsonString))
+                    {
+                        return new List<Contact>();
+                    }
+                    return JsonSerializer.Deserialize<List<Contact>>(jsonString) ?? new List<Contact>();
+                }
+            });
 
         }
 
-        void ISerializer.Serialize(IList<Contact> contacts)
+        Task ISerializer.Serialize(List<Contact> contacts)
         {
-            string jsonString = JsonSerializer.Serialize<IList<Contact>>(contacts);
-            File.WriteAllText(_soursePath, jsonString);
+            return Task.Run(() =>
+            {
+                string jsonString = JsonSerializer.Serialize<IList<Contact>>(contacts);
+                File.WriteAllText(_soursePath, jsonString);
+            });
         }
     }
 }

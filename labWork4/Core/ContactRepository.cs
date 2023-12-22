@@ -15,7 +15,7 @@ namespace labWork4.Core
         internal static int currentId = 0;
         protected readonly Dictionary<int, Contact> Contacts = new Dictionary<int, Contact>();
 
-        protected ContactRepository(IList<Contact> contacts) {
+        protected ContactRepository(List<Contact> contacts) {
             if (contacts.Count > 0)
             {
                 foreach (Contact contact in contacts)
@@ -46,11 +46,11 @@ namespace labWork4.Core
             }
         }
 
-        public virtual void AddContact(Contact contact)
+        public virtual Task AddContact(Contact contact)
         {
             currentId++;
             contact.Id = currentId; 
-            Contacts.Add(contact.Id, contact);
+            return Task.Run(()=>Contacts.Add(contact.Id, contact));
         }
 
         public List<Contact> GetAllContacts()
@@ -58,9 +58,9 @@ namespace labWork4.Core
             return Contacts.Values.ToList();
         }
 
-        private List<Contact> FindContactsByPredicate(Predicate<Contact> predicate)
+        private List<Contact> FindContactsByPredicate(Func<Contact, bool> predicate)
         {
-            List<Contact> resultSet = new List<Contact>();
+            /*List<Contact> resultSet = new List<Contact>();
             foreach (Contact contact in Contacts.Values)
             {
                 if (predicate(contact))
@@ -69,6 +69,8 @@ namespace labWork4.Core
                 };
             }
             return resultSet;
+            */
+            return Contacts.Values.Where(predicate).ToList();
         }
 
         public List<Contact> FindByFirstname(string firstname)

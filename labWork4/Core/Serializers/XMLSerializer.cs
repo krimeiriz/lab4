@@ -24,28 +24,34 @@ namespace labWork4.Core.Serializers
             }
             this._soursePath = sourcePath;
         }
-        IList<Contact> ISerializer.Deserialize()
+        Task<List<Contact>> ISerializer.Deserialize()
         {
-            if (!File.Exists(_soursePath))
+            return Task<List<Contact>>.Run(() =>
             {
-                return new List<Contact>();
-            }
-            else
-            {
-                var xmlString = File.ReadAllText(_soursePath);
-                if(string.IsNullOrEmpty(xmlString))
+                if (!File.Exists(_soursePath))
                 {
                     return new List<Contact>();
                 }
-                using FileStream fs = new(_soursePath, FileMode.Open);
-                return (List<Contact>)serializer.Deserialize(fs)!;
-            }
+                else
+                {
+                    var xmlString = File.ReadAllText(_soursePath);
+                    if (string.IsNullOrEmpty(xmlString))
+                    {
+                        return new List<Contact>();
+                    }
+                    using FileStream fs = new(_soursePath, FileMode.Open);
+                    return (List<Contact>) serializer.Deserialize(fs)!;
+                }
+            });
         }
 
-        void ISerializer.Serialize(IList<Contact> contacts)
+        Task ISerializer.Serialize(List<Contact> contacts)
         {
-            using StreamWriter sw = new(_soursePath);
-            serializer.Serialize(sw, contacts);
+            return Task.Run(() =>
+            {
+                using StreamWriter sw = new(_soursePath);
+                serializer.Serialize(sw, contacts);
+            });
         }
     }
 }
