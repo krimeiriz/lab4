@@ -19,13 +19,14 @@ namespace labWork4.Core
             this._context = context;
         }
 
-        public override void AddContact(Contact contact)
+        public async override Task<Contact> AddContact(Contact contact)
         {
-            base.AddContact(contact);
+            await base.AddContact(contact);
             _context.Contacts.Add(contact);
-            _context.SaveChanges();
+            return await _context.SaveChangesAsync() == 1 ? contact : null!;
+           
         }
-        public override void ResetRepository()
+        public async override void ResetRepository()
         {
             base.ResetRepository();
             var tempList = new List<Contact>();
@@ -34,6 +35,7 @@ namespace labWork4.Core
             {
                 _context.Contacts.Remove(c);
             }
+            await _context.SaveChangesAsync();
         }
     }
 }

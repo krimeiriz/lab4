@@ -18,13 +18,6 @@ namespace labWork4.Models
         [Required]
         public string PhoneNumber { get; set; } = null!;
         public string? Email { get; set; }
-       
-        public override string ToString()
-        {
-            return "#" + Id + " Name:" + FirstName + "\n" +
-                "Lastname: " + LastName + "\n" +
-                "Phone number: " + PhoneNumber + "\n" +
-                "E-mail: " + Email + "\n";
-        }
+
     }
 }

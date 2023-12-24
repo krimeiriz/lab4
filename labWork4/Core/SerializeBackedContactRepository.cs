@@ -12,25 +12,26 @@ namespace labWork4.Core
     {
         private ISerializer _serializer;
         public SerializeBackedContactRepository(ISerializer serializer)
-            : base(serializer.Deserialize())
+            : base(serializer.Deserialize().Result)
         {
             this._serializer = serializer;
         }
 
-        public override void AddContact(Contact contact)
+        public async override Task<Contact> AddContact(Contact contact)
         {
-            base.AddContact(contact);
-            Save();
+            await base.AddContact(contact);
+            await Save();
+            return contact;
         }
-        public override void ResetRepository()
+        public async override void ResetRepository()
         {
             base.ResetRepository();
-            Save();
+            await Save();
         }
 
-        private void Save()
+        private Task Save()
         {
-            _serializer.Serialize(base.Contacts.Values.ToList());
+            return _serializer.Serialize(base.Contacts.Values.ToList());
         }
     }
 }

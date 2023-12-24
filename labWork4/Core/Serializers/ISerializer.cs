@@ -9,8 +9,8 @@ namespace labWork4.Core.Serializers
 {
     public interface ISerializer
     {
-        IList<Contact> Deserialize();
+        Task<List<Contact>> Deserialize();
 
-        void Serialize(IList<Contact> contacts);
+        Task Serialize(List<Contact> contacts);
     }
 }

@@ -1,5 +1,9 @@
 bin
 obj
 .vs
-labWork3.sln
+labWork4.sln
 packages
+*.db
+*.json
+*.xml
+*.sln

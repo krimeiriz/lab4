@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "labWork4", "labWork4\labWork4.csproj", "{B4F4F98A-4AF0-4C40-82FB-EC78E887EFCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "labWork4", "labWork4\labWork4.csproj", "{B4F4F98A-4AF0-4C40-82FB-EC78E887EFCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "labWork4Tests", "labWork4Tests\labWork4Tests.csproj", "{FAAD652E-CE2E-40BD-9E23-221CDBED3DAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B4F4F98A-4AF0-4C40-82FB-EC78E887EFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4F4F98A-4AF0-4C40-82FB-EC78E887EFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4F4F98A-4AF0-4C40-82FB-EC78E887EFCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAAD652E-CE2E-40BD-9E23-221CDBED3DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAAD652E-CE2E-40BD-9E23-221CDBED3DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAAD652E-CE2E-40BD-9E23-221CDBED3DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAAD652E-CE2E-40BD-9E23-221CDBED3DAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
