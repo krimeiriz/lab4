@@ -25,7 +25,7 @@ namespace labWork4.Controllers
         }
 
         [HttpPost]
-        public Task AddContact([FromBody] Contact contact)
+        public Task<Contact> AddContact([FromBody] Contact contact)
         {
             return _repository.AddContact(contact);
 

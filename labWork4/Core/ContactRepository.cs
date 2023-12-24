@@ -25,6 +25,8 @@ namespace labWork4.Core
                 currentId = contacts.Max(c => c.Id);
             }
         }
+
+        protected ContactRepository() { }
         public static ContactRepository CreateRepository(RepositoryType type, string? path)
         {
             ISerializer serializer;
@@ -46,34 +48,28 @@ namespace labWork4.Core
             }
         }
 
-        public virtual Task AddContact(Contact contact)
+        public virtual Task<Contact> AddContact(Contact contact)
         {
-            currentId++;
-            contact.Id = currentId; 
-            return Task.Run(()=>Contacts.Add(contact.Id, contact));
+            return Task.Run(() =>
+            {
+                currentId++;
+                contact.Id = currentId;
+                Contacts.Add(contact.Id, contact);
+                return contact;
+            });
         }
 
-        public List<Contact> GetAllContacts()
+        public virtual List<Contact> GetAllContacts()
         {
             return Contacts.Values.ToList();
         }
 
         private List<Contact> FindContactsByPredicate(Func<Contact, bool> predicate)
         {
-            /*List<Contact> resultSet = new List<Contact>();
-            foreach (Contact contact in Contacts.Values)
-            {
-                if (predicate(contact))
-                {
-                    resultSet.Add(contact);
-                };
-            }
-            return resultSet;
-            */
             return Contacts.Values.Where(predicate).ToList();
         }
 
-        public List<Contact> FindByFirstname(string firstname)
+        public virtual List<Contact> FindByFirstname(string firstname)
         {
             return FindContactsByPredicate(c =>
             {
@@ -83,7 +79,7 @@ namespace labWork4.Core
         }
 
 
-        public List<Contact> FindByLastname(string lastname)
+        public virtual List<Contact> FindByLastname(string lastname)
         {
             return FindContactsByPredicate(c =>
             {
@@ -92,7 +88,7 @@ namespace labWork4.Core
             });
         }
 
-        public List<Contact> FindByFullname(string firstName, string lastname)
+        public virtual List<Contact> FindByFullname(string firstName, string lastname)
         {
             return FindContactsByPredicate(c =>
             {
@@ -103,7 +99,7 @@ namespace labWork4.Core
             });
         }
 
-        public List<Contact> FindByPhoneNumber(string phoneNumber)
+        public virtual List<Contact> FindByPhoneNumber(string phoneNumber)
         {
             return FindContactsByPredicate(c =>
             {
@@ -112,7 +108,7 @@ namespace labWork4.Core
             });
         }
 
-        public List<Contact> FindByEmail(string email)
+        public virtual List<Contact> FindByEmail(string email)
         {
             return FindContactsByPredicate(c =>
             {
@@ -121,7 +117,7 @@ namespace labWork4.Core
             });
         }
 
-        public List<Contact> FindByAnyField(string field)
+        public virtual List<Contact> FindByAnyField(string field)
         {
             return FindContactsByPredicate(c =>
             {

@@ -17,10 +17,11 @@ namespace labWork4.Core
             this._serializer = serializer;
         }
 
-        public override Task AddContact(Contact contact)
+        public async override Task<Contact> AddContact(Contact contact)
         {
-            base.AddContact(contact);
-            return Save();
+            await base.AddContact(contact);
+            await Save();
+            return contact;
         }
         public async override void ResetRepository()
         {

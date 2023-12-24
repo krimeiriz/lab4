@@ -19,11 +19,12 @@ namespace labWork4.Core
             this._context = context;
         }
 
-        public override Task AddContact(Contact contact)
+        public async override Task<Contact> AddContact(Contact contact)
         {
-            base.AddContact(contact);
+            await base.AddContact(contact);
             _context.Contacts.Add(contact);
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() == 1 ? contact : null!;
+           
         }
         public async override void ResetRepository()
         {
